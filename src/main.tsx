@@ -1,9 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home } from "./pages/home/index.tsx";
+import { BrowserRouter } from "react-router-dom";
+
+import { MainRoutes } from "./routes.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Home />
-  </React.StrictMode>
+  <BrowserRouter>
+    <MainRoutes />
+  </BrowserRouter>
 );
