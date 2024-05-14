@@ -1,15 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export function ProductForm() {
-  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
   const handleSubmit = async () => {
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}products`,
-      { id, name, price }
+      { name, price }
     );
     const { data } = response;
     if (data) {
@@ -22,11 +21,6 @@ export function ProductForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        ID:
-        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-      </label>
-      <br />
       <label>
         Name:
         <input

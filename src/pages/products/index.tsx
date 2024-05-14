@@ -22,7 +22,6 @@ interface ProductProps {
 function Card(product: ProductProps) {
   return (
     <div
-      key={product.id}
       style={{
         width: "300px",
         height: "100px",
@@ -30,7 +29,9 @@ function Card(product: ProductProps) {
         backgroundColor: "#690010",
       }}
     >
-      <h3>{product.name}</h3>
+      <h3>
+        {product.name} ({product.id})
+      </h3>
       <p>R$ {product.price}</p>
     </div>
   );
@@ -58,7 +59,7 @@ export function Products() {
         }}
       >
         {products.map((product) => (
-          <Card {...product} />
+          <Card key={product.id} {...product} />
         ))}
       </div>
       <button
