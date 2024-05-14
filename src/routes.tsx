@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/home";
+import { Products } from "./pages/products";
 
 const routes = [
   {
@@ -8,7 +9,7 @@ const routes = [
   },
   {
     path: "/products",
-    element: <h1>Space reserved for Products.</h1>,
+    element: <Products />,
   },
   {
     path: "/orders",
