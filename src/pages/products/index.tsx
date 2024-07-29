@@ -1,25 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProductForm } from "./form";
+import { useProducts } from "./products.hooks";
+import { ProductType } from "./type";
 
-async function fetchProducts() {
-  try {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}products`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-interface ProductProps {
-  id: number;
-  name: string;
-  price: number;
-}
-
-function Card(product: ProductProps) {
+function Card(product: ProductType) {
   return (
     <div
       style={{
@@ -38,16 +22,8 @@ function Card(product: ProductProps) {
 }
 
 export function Products() {
-  const [products, setProducts] = useState([{ id: 0, name: "", price: 0 }]);
   const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await fetchProducts();
-      setProducts(data);
-    };
-    fetch();
-  }, []);
+  const { products, isLoading, isError } = useProducts();
 
   return (
     <div>
@@ -58,9 +34,12 @@ export function Products() {
           gap: "20px",
         }}
       >
-        {products.map((product) => (
-          <Card key={product.id} {...product} />
-        ))}
+        {isError && <p>Something went wrong while loading product list.</p>}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          products?.map((product) => <Card key={product.id} {...product} />)
+        )}
       </div>
       <button
         onClick={() => setShowForm(!showForm)}
